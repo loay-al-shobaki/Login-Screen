@@ -97,7 +97,12 @@ fun HeadingTextComponent(value: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextFieldComponent(labelValue: String, painter: Painter) {
+fun MyTextFieldComponent(
+    labelValue: String,
+    painter: Painter,
+    onTextChanged: (String) -> Unit,
+    errorStatus: Boolean = false
+) {
     var textValue by remember {
         mutableStateOf("")
     }
@@ -106,7 +111,10 @@ fun MyTextFieldComponent(labelValue: String, painter: Painter) {
             .fillMaxWidth()
             .clip(componentShapes.small),
         value = textValue,
-        onValueChange = { textValue = it },
+        onValueChange = {
+            textValue = it
+            onTextChanged(it)
+        },
         label = { Text(text = labelValue) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedLabelColor = Primary,
@@ -122,7 +130,9 @@ fun MyTextFieldComponent(labelValue: String, painter: Painter) {
             )
         },
         singleLine = true,
-        maxLines = 1
+        maxLines = 1 ,
+
+        isError = !errorStatus
 
     )
 
@@ -130,7 +140,12 @@ fun MyTextFieldComponent(labelValue: String, painter: Painter) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextFieldComponent(labelValue: String, painter: Painter) {
+fun PasswordTextFieldComponent(
+    labelValue: String,
+    painter: Painter,
+    onTextChanged: (String) -> Unit,
+    errorStatus: Boolean = false
+) {
     var password by remember {
         mutableStateOf("")
     }
@@ -143,7 +158,10 @@ fun PasswordTextFieldComponent(labelValue: String, painter: Painter) {
             .fillMaxWidth()
             .clip(componentShapes.small),
         value = password,
-        onValueChange = { password = it },
+        onValueChange = {
+            password = it
+            onTextChanged(it)
+        },
         label = { Text(text = labelValue) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedLabelColor = Primary,
@@ -153,10 +171,9 @@ fun PasswordTextFieldComponent(labelValue: String, painter: Painter) {
         ),
         singleLine = true,
         maxLines = 1,
-        keyboardActions = KeyboardActions{
+        keyboardActions = KeyboardActions {
             localFocusManger.clearFocus()
-        }
-        ,
+        },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         leadingIcon = {
             Icon(
@@ -179,7 +196,8 @@ fun PasswordTextFieldComponent(labelValue: String, painter: Painter) {
             }
 
         },
-        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        isError = !errorStatus
 
     )
 
@@ -201,12 +219,16 @@ fun CheckboxComponent(value: String, onTextSelected: (String) -> Unit) {
             onCheckedChange = {
                 checkedState = !checkedState
             })
-        ClickbleTextComponent(value = value, onTextSelected)
+        //     ClickbleTextComponent(value = value)
     }
 }
 
 @Composable
-fun ClickbleTextComponent(value: String, onTextSelected: (String) -> Unit) {
+fun ClickbleTextComponent(
+    value: String,
+    onTextSelected: (String) -> Unit,
+
+) {
     val initialText = "By continuing you accpet our "
     val privacyPolicyText = "Privacy Policy "
     val andText = " and "
@@ -237,13 +259,15 @@ fun ClickbleTextComponent(value: String, onTextSelected: (String) -> Unit) {
 }
 
 @Composable
-fun ButtonComponent(value: String) {
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit) {
 
     Button(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp),
-        onClick = { },
+        onClick = {
+            onButtonClicked.invoke()
+        },
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(),
         shape = RoundedCornerShape(50.dp)

@@ -14,7 +14,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.loginscreen.R
+import com.example.loginscreen.app.data.LoginViewModel
+import com.example.loginscreen.app.data.UIEvent
 import com.example.loginscreen.components.ButtonComponent
 import com.example.loginscreen.components.CheckboxComponent
 import com.example.loginscreen.components.ClickbleLoginTextComponent
@@ -27,7 +30,7 @@ import com.example.loginscreen.navigation.PostOfficeAppRouter
 import com.example.loginscreen.navigation.Screen
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(loginViewModel: LoginViewModel = viewModel()) {
     Surface(
         color = Color.White,
         modifier = Modifier
@@ -41,30 +44,51 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(20.dp))
             MyTextFieldComponent(
                 labelValue = stringResource(id = R.string.firstname),
-                painter = painterResource(id = R.drawable.profile)
+                painter = painterResource(id = R.drawable.profile),
+                onTextChanged = {
+                    loginViewModel.onEvent(UIEvent.FirstNameChanged(it))
+                },
+                errorStatus =  loginViewModel.registrationUIState.firstNameError
+
             )
             MyTextFieldComponent(
                 labelValue = stringResource(id = R.string.last_name),
-                painter = painterResource(id = R.drawable.profile)
+                painter = painterResource(id = R.drawable.profile),
+                onTextChanged = {
+                    loginViewModel.onEvent(UIEvent.LastNameChanged(it))
+                },
+                errorStatus =  loginViewModel.registrationUIState.lastNameError
             )
             MyTextFieldComponent(
                 labelValue = stringResource(id = R.string.email),
-                painter = painterResource(id = R.drawable.message)
+                painter = painterResource(id = R.drawable.message),
+                onTextChanged = {
+                    loginViewModel.onEvent(UIEvent.EmailChanged(it))
+                },
+                loginViewModel.registrationUIState.emailError
             )
             PasswordTextFieldComponent(
                 labelValue = stringResource(id = R.string.password),
-                painter = painterResource(id = R.drawable.lock)
+                painter = painterResource(id = R.drawable.lock),
+                onTextChanged = {
+                    loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+                },
+                loginViewModel.registrationUIState.passwordError
             )
             CheckboxComponent(value = stringResource(id = R.string.terms_and_conditions),
                 onTextSelected = {
                     PostOfficeAppRouter.navigateTo(Screen.TermsAndConditionsScreen)
                 }
-                )
+            )
             Spacer(modifier = Modifier.height(40.dp))
-            ButtonComponent(value = stringResource(id = R.string.register))
+            ButtonComponent(value = stringResource(id = R.string.register),
+                onButtonClicked = {
+                    loginViewModel.onEvent(UIEvent.RegisterButtonClicked)
+                }
+            )
 
             DividerTextComponent()
-            
+
             ClickbleLoginTextComponent(tryingToLogin = true, onTextSelected = {
                 PostOfficeAppRouter.navigateTo(Screen.LoginScreen)
             })

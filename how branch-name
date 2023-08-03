@@ -1,0 +1,11 @@
+[33mcommit 20aab1ab30a88cee6aaf7eaecf52ed6f69e71ef7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Loay Al Shobaki <107764558+loay-al-shobaki@users.noreply.github.com>
+Date:   Wed Aug 2 18:02:49 2023 +0300
+
+    implemented data layer with uiEventes and ViewModel
+
+[33mcommit d4e65e3894ae31f911caa65171ef91421cb598d8[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Loay Al Shobaki <107764558+loay-al-shobaki@users.noreply.github.com>
+Date:   Tue Aug 1 10:28:21 2023 +0300
+
+    Pushing all the files in git

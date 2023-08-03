@@ -30,17 +30,30 @@ import com.example.loginscreen.navigation.SystemBackButtonHandler
 
 @Composable
 fun LoginScreen() {
-    Surface(modifier = Modifier
+    Surface(
+        modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
-            .padding(28.dp)) {
+            .padding(28.dp)
+    ) {
         Column(modifier = Modifier.fillMaxSize()) {
             NormalTextComponent(value = stringResource(id = R.string.login))
             HeadingTextComponent(value = stringResource(id = R.string.wlecome))
             Spacer(modifier = Modifier.height(20.dp))
 
-            MyTextFieldComponent(labelValue = stringResource(id = R.string.email), painter = painterResource(id = R.drawable.message))
-            PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password), painter = painterResource(id = R.drawable.lock))
+            MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
+                painter = painterResource(id = R.drawable.message),
+                onTextChanged = {
+
+                }
+            )
+            PasswordTextFieldComponent(
+                labelValue = stringResource(id = R.string.password),
+                painter = painterResource(id = R.drawable.lock),
+                onTextChanged = {
+
+                }
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -48,7 +61,11 @@ fun LoginScreen() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            ButtonComponent(value = stringResource(id = R.string.login))
+            ButtonComponent(value = stringResource(id = R.string.login),
+                onButtonClicked = {
+                    
+                }
+                )
 
             Spacer(modifier = Modifier.height(20.dp))
 

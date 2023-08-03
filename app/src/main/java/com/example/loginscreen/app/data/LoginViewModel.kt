@@ -5,18 +5,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.loginscreen.app.data.rules.Validator
 
 class LoginViewModel : ViewModel() {
     private val TAG = LoginViewModel::class.java.simpleName
-    private var registrationUIState by mutableStateOf(RegistrationUIState())
+     var registrationUIState by mutableStateOf(RegistrationUIState())
 
     fun onEvent(event: UIEvent) {
+        validateDataWithRules()
         when (event) {
             is UIEvent.FirstNameChanged -> {
                 registrationUIState = registrationUIState.copy(
                     firstName = event.firtsName
                 )
                 printState()
+                validateDataWithRules()
             }
 
             is UIEvent.LastNameChanged -> {
@@ -24,6 +27,7 @@ class LoginViewModel : ViewModel() {
                     lastName = event.lastname
                 )
                 printState()
+                validateDataWithRules()
             }
 
             is UIEvent.EmailChanged -> {
@@ -31,6 +35,7 @@ class LoginViewModel : ViewModel() {
                     emai = event.email
                 )
                 printState()
+                validateDataWithRules()
             }
 
             is UIEvent.PasswordChanged -> {
@@ -38,11 +43,53 @@ class LoginViewModel : ViewModel() {
                     password = event.password
                 )
                 printState()
+                validateDataWithRules()
             }
+
+            is UIEvent.RegisterButtonClicked -> {
+                sginUp()
+            }
+
+            else -> {}
         }
     }
 
-    private fun printState(){
+    private fun sginUp() {
+        Log.d(TAG, "sginUp: indide_signUp")
+        printState()
+
+        validateDataWithRules()
+    }
+
+    private fun validateDataWithRules() {
+        val fNameResult = Validator.validateFirstName(
+            fName = registrationUIState.firstName
+        )
+        val lNameResult = Validator.validateLast(
+            lName = registrationUIState.lastName
+        )
+        val emailResult = Validator.validateEmail(
+            email = registrationUIState.emai
+        )
+        val passwordResult = Validator.validatePassword(
+            password = registrationUIState.password
+        )
+        Log.d(TAG, "validateDataWithRules: ")
+        Log.d(TAG, "fNameResult: $fNameResult")
+        Log.d(TAG, "lNameResult: $lNameResult")
+        Log.d(TAG, "emailResult: $emailResult")
+        Log.d(TAG, "passwordResult: $passwordResult")
+
+        registrationUIState=registrationUIState.copy(
+            firstNameError = fNameResult.status,
+            lastNameError = lNameResult.status,
+            emailError = emailResult.status,
+            passwordError = passwordResult.status
+        )
+
+    }
+
+    private fun printState() {
         Log.d(TAG, "printState: Inside_printState")
         Log.d(TAG, registrationUIState.toString())
     }
