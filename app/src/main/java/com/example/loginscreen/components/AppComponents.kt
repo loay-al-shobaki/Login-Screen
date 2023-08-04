@@ -130,7 +130,7 @@ fun MyTextFieldComponent(
             )
         },
         singleLine = true,
-        maxLines = 1 ,
+        maxLines = 1,
 
         isError = !errorStatus
 
@@ -205,7 +205,7 @@ fun PasswordTextFieldComponent(
 
 
 @Composable
-fun CheckboxComponent(value: String, onTextSelected: (String) -> Unit) {
+fun CheckboxComponent(value: String, onTextSelected: (String) -> Unit ,onCheckedChange :(Boolean) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -218,8 +218,9 @@ fun CheckboxComponent(value: String, onTextSelected: (String) -> Unit) {
         Checkbox(checked = checkedState,
             onCheckedChange = {
                 checkedState = !checkedState
+                onCheckedChange.invoke(it)
             })
-        //     ClickbleTextComponent(value = value)
+         ClickbleTextComponent(value = value,onTextSelected)
     }
 }
 
@@ -228,7 +229,7 @@ fun ClickbleTextComponent(
     value: String,
     onTextSelected: (String) -> Unit,
 
-) {
+    ) {
     val initialText = "By continuing you accpet our "
     val privacyPolicyText = "Privacy Policy "
     val andText = " and "
@@ -259,7 +260,7 @@ fun ClickbleTextComponent(
 }
 
 @Composable
-fun ButtonComponent(value: String, onButtonClicked: () -> Unit) {
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false) {
 
     Button(
         modifier = Modifier
@@ -270,7 +271,8 @@ fun ButtonComponent(value: String, onButtonClicked: () -> Unit) {
         },
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(),
-        shape = RoundedCornerShape(50.dp)
+        shape = RoundedCornerShape(50.dp),
+        enabled = isEnabled
     ) {
         Box(
             modifier = Modifier

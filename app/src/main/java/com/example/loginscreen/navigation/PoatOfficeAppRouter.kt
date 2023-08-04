@@ -9,6 +9,7 @@ sealed class Screen {
     object TermsAndConditionsScreen : Screen()
     object LoginScreen : Screen()
     object HomeScreen : Screen()
+    object HomwScreen : Screen()
 }
 
 
@@ -16,7 +17,7 @@ object PostOfficeAppRouter {
 
     var currentScreen: MutableState<Screen> = mutableStateOf(Screen.SignUpScreen)
 
-    fun navigateTo(destination : Screen){
+    fun navigateTo(destination: Screen) {
         currentScreen.value = destination
     }
 
