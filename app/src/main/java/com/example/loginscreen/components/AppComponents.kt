@@ -411,7 +411,7 @@ fun Apptoolbar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Drawer(navigationItemsList: List<NavigationItem>, logoutButtonClicked: () -> Unit) {
+fun Drawer(value:String?,navigationItemsList: List<NavigationItem>, logoutButtonClicked: () -> Unit) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -421,14 +421,29 @@ fun Drawer(navigationItemsList: List<NavigationItem>, logoutButtonClicked: () ->
 
     ModalNavigationDrawer(drawerContent = {
         ModalDrawerSheet {
-            Image(
-                painter = painterResource(id = R.drawable.img_1),
-                contentDescription = "Header",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(150.dp),
-                contentScale = ContentScale.Crop
-            )
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp)
+            ){
+
+                Image(
+                    painter = painterResource(id = R.drawable.img_1),
+                    contentDescription = "Header",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp),
+                    contentScale = ContentScale.Crop
+                )
+                Text(
+                    text = value?:stringResource(R.string.app_drawer) ,
+                    modifier = Modifier.padding(top = 24.dp, start = 24.dp),
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+
             Spacer(modifier = Modifier.height(15.dp))
             navigationItemsList.forEach { item ->
                 NavigationDrawerItem(modifier = Modifier.padding(8.dp), label = {
@@ -447,8 +462,9 @@ fun Drawer(navigationItemsList: List<NavigationItem>, logoutButtonClicked: () ->
         Scaffold(
             topBar = {
                 Apptoolbar(
-                    toolbarTitle = stringResource(id = R.string.home), logoutButtonClicked = {
-                        logoutButtonClicked
+                    toolbarTitle = stringResource(id = R.string.home),
+                    logoutButtonClicked = {
+                        logoutButtonClicked.invoke()
                     },
                     drawertButtonClicked = {
                         scope.launch {

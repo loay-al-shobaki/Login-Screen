@@ -37,4 +37,14 @@ class HomeViewModel : ViewModel() {
             isUserLogedIn.value = false
         }
     }
+
+
+    val emailId: MutableLiveData<String> = MutableLiveData()
+    fun getUserData() {
+        FirebaseAuth.getInstance().currentUser?.also {
+            it.email?.also { email ->
+                emailId.value = email
+            }
+        }
+    }
 }

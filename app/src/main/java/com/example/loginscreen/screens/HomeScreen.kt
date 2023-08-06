@@ -15,6 +15,8 @@ import com.example.loginscreen.components.Drawer
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
+    homeViewModel.getUserData()
+
     val navigationItemsList = listOf<NavigationItem>(
         NavigationItem(
             title = "Home",
@@ -34,7 +36,7 @@ fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
         )
     )
 
- Drawer (navigationItemsList){
+ Drawer (homeViewModel.emailId.value,navigationItemsList){
      homeViewModel.logout()
  }
 
