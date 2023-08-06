@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.loginscreen.R
-import com.example.loginscreen.app.data.SignupViewModel
-import com.example.loginscreen.app.data.SignupUIEvent
+import com.example.loginscreen.app.data.signup.SignupViewModel
+import com.example.loginscreen.app.data.signup.SignupUIEvent
 import com.example.loginscreen.components.ButtonComponent
 import com.example.loginscreen.components.CheckboxComponent
 import com.example.loginscreen.components.ClickbleLoginTextComponent

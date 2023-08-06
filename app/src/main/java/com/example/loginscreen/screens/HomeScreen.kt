@@ -1,40 +1,47 @@
 package com.example.loginscreen.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.loginscreen.app.data.SignupViewModel
-import com.example.loginscreen.components.ButtonComponent
-import com.example.loginscreen.components.HeadingTextComponent
+import com.example.loginscreen.app.data.NavigationItem
+import com.example.loginscreen.app.data.home.HomeViewModel
+import com.example.loginscreen.components.Drawer
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(signupViewModel: SignupViewModel = viewModel()) {
-    Surface(
-        color = Color.White,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(28.dp),
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            HeadingTextComponent(value = "Home")
-            ButtonComponent(
-                value = "loguot", onButtonClicked = {
-                    signupViewModel.logout()
-                },
-                isEnabled = true
-            )
-        }
+fun HomeScreen(homeViewModel: HomeViewModel = viewModel()) {
+    val navigationItemsList = listOf<NavigationItem>(
+        NavigationItem(
+            title = "Home",
+            icon = Icons.Default.Home,
+            description = "Home Screen",
+            itemId = "homwScreen"
+        ), NavigationItem(
+            title = "Settings",
+            icon = Icons.Default.Settings,
+            description = "Setting Screen",
+            itemId = "settingScreen"
+        ), NavigationItem(
+            title = "Favorite",
+            icon = Icons.Default.Favorite,
+            description = "Favorite Screen",
+            itemId = "favoriteScreen"
+        )
+    )
+
+ Drawer (navigationItemsList){
+     homeViewModel.logout()
+ }
+
     }
-}
+
+
+
 
 @Preview
 @Composable

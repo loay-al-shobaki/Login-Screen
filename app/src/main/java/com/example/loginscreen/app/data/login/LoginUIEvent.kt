@@ -1,4 +1,4 @@
-package com.example.loginscreen.app.data.rules
+package com.example.loginscreen.app.data.login
 
 sealed class LoginUIEvent {
 
@@ -6,6 +6,6 @@ sealed class LoginUIEvent {
     data class PasswordChanged(val password: String) : LoginUIEvent()
 
 
-    object LoginButtonClicked:LoginUIEvent()
+    object LoginButtonClicked: LoginUIEvent()
 
 }

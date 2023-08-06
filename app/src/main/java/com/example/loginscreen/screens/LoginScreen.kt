@@ -20,8 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.loginscreen.R
-import com.example.loginscreen.app.data.rules.LoginUIEvent
-import com.example.loginscreen.app.data.rules.LoginViewModel
+import com.example.loginscreen.app.data.login.LoginUIEvent
+import com.example.loginscreen.app.data.login.LoginViewModel
 import com.example.loginscreen.components.ButtonComponent
 import com.example.loginscreen.components.ClickbleLoginTextComponent
 import com.example.loginscreen.components.DividerTextComponent

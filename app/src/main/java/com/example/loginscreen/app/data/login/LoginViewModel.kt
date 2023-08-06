@@ -1,10 +1,11 @@
-package com.example.loginscreen.app.data.rules
+package com.example.loginscreen.app.data.login
 
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.loginscreen.app.data.rules.Validator
 import com.example.loginscreen.navigation.PostOfficeAppRouter
 import com.example.loginscreen.navigation.Screen
 import com.google.firebase.auth.FirebaseAuth
@@ -18,9 +19,7 @@ class LoginViewModel : ViewModel() {
     var loginInProgress = mutableStateOf(false)
 
     fun onEvent(event: LoginUIEvent) {
-
         when (event) {
-
             is LoginUIEvent.EmailChanged -> {
                 loginUIState = loginUIState.copy(
                     emai = event.email

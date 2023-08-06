@@ -1,4 +1,4 @@
-package com.example.loginscreen.app.data.rules
+package com.example.loginscreen.app.data.login
 
 data class LoginUIState(
     var emai: String = "",

@@ -1,10 +1,11 @@
-package com.example.loginscreen.app.data
+package com.example.loginscreen.app.data.signup
 
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.loginscreen.app.data.RegistrationUIState
 import com.example.loginscreen.app.data.rules.Validator
 import com.example.loginscreen.navigation.PostOfficeAppRouter
 import com.example.loginscreen.navigation.Screen
@@ -62,6 +63,7 @@ class SignupViewModel : ViewModel() {
                 registrationUIState = registrationUIState.copy(
                     privacvPolicyAccepted = event.status
                 )
+                validateDataWithRules()
             }
 
             else -> {}
